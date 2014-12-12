@@ -1,0 +1,67 @@
+From: 21st Century C
+Author: Ben Klemens
+Publisher: O'Reilly Media, Inc.
+Pub. Date: October 29, 2012
+ISBN-13: 978-1-4493-2714-9
+
+The actual history of Autoconf, Automake, and Libtool is somewhat involved:
+these are distinct packages, and there is a reason to run any of them without
+the other. But here’s how I like to imagine it all happening.
+
+Meno: I love make. It’s so nice that I can write down all the little steps to
+building my project in one place.
+
+Socrates: Yes, automation is great. Everything should be automated, all the
+time.
+
+Meno: I have lots of targets in my makefile, so users can type make to produce
+the program, make install to install, make check to run tests, and so on. It’s
+a lot of work to write all those makefile targets, but so smooth when it’s all
+assembled.
+
+Socrates: OK, I shall write a system—it will be called Automake—that will
+automatically generate makefiles with all the usual targets from a very short
+pre-makefile.
+
+Meno: That’s great. Producing shared libraries is especially annoying, because
+every system has a different procedure.
+
+Socrates: It is annoying. Given the system information, I shall write a program
+for generating the scripts needed to produce shared libraries from source code,
+and then put those into Automade makefiles.
+
+Meno: Wow, so all I have to do is tell you my operating system, and whether my
+compiler is named cc or clang or gcc or whatever, and you’ll drop in the right
+code for the system I’m on?
+
+Socrates: That’s error-prone. I will write a system called Autoconf that will
+be aware of every system out there and that will produce a report of everything
+Automake and your program needs to know about the system. Then Autoconf will
+run Automake, which will use the list of variables in my report to produce a
+makefile.
+
+Meno: I am flabbergasted—you’ve automated the process of autogenerating
+makefiles. But it sounds like we’ve just changed the work I have to do from
+inspecting the various platforms to writing configuration files for Autoconf
+and makefile templates for Automake.
+
+Socrates: You’re right. I shall write a tool, Autoscan, that will scan the
+Makefile.am you wrote for Automake, and autogenerate Autoconf’s configure.ac
+for you.
+
+Meno: Now all you have to do is autogenerate Makefile.am.
+
+Socrates: Yeah, whatever. RTFM and do it yourself.
+
+How much do all these macros do? The hello.c program itself is a leisurely
+three lines and Makefile.am is two lines, for five lines of user-written text.
+Your results may differ a little, but when I run wc -l * in the post-script
+directory, I find 11,000 lines of text, including a 4,700-line configure
+script.
+
+It’s so bloated because it’s so portable: your recipients probably don’t have
+Autotools installed, and who knows what else they’re missing, so this script
+depends only on rudimentary POSIX-compliance.
+
+I count 73 targets in the 600-line makefile.
+

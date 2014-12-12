@@ -1,0 +1,38 @@
+1. created Makefile.am
+
+cat Makefile.am <<\
+"--------------"
+bin_PROGRAMS=http_server
+http_server_SOURCES=http_server.c
+--------------
+
+2. run autoscan
+
+autoscan && rm autoscan.log
+
+3. Edit configure.scan, mv to configure.ac.  Example diff -u:
+
+--- configure.scan  2013-08-05 16:52:46.000000000 -0700
++++ configure.ac  2013-08-05 17:04:45.000000000 -0700
+@@ -2,11 +2,12 @@
+ # Process this file with autoconf to produce a configure script.
+
+ AC_PREREQ([2.69])
+-AC_INIT([FULL-PACKAGE-NAME], [VERSION], [BUG-REPORT-ADDRESS])
++AC_INIT([http_server], [1], [/dev/null])
+ AC_CONFIG_SRCDIR([http_server.c])
+ AC_CONFIG_HEADERS([config.h])
+
+ # Checks for programs.
++AM_INIT_AUTOMAKE
+ AC_PROG_CC
+
+ # Checks for libraries.
+
+4. create bs
+
+touch NEWS README AUTHORS ChangeLog
+autoreconf -iv
+./configure
+make distcheck
+
